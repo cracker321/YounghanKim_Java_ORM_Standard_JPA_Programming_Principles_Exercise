@@ -22,7 +22,6 @@ public class Memeber {
 
 
 
-
     public Long getId() {
         return id;
     }
