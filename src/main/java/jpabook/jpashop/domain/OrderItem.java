@@ -21,7 +21,7 @@ public class OrderItem {
 
     //< 'OrderItem 객체의 필드 item'과 'Item 객체의 필드 id' 간의 '단방향 연관관계 매핑': 주문된 상품ID >
     @ManyToOne //'주문상품(OrderItem) 객체'와 '상품(Item) 객체'의 관계 = N : 1
-    @JoinColumn(name = "ITEM_ID") //'OrderItem 객체의 필드 item(= 'Item 객체의 필드 id)'는
+    @JoinColumn(name = "ITEM_ID") //'OrderItem 객체의 필드 item(= 'Item 객체의 필드 id)'은
                                   //'테이블 ITEM의 컬럼 ITEM_ID'에 대응된다!
     private Item item; //'OrderItem 객체의 필드 item'. FK = 'Item 객체의 필드 id'. PK
                        //'OrderItem 객체'의 입장에서는, '어떤 Item ID(상품정보)가 주문되었는지' '그 Item ID'에 대한 정보가 필요함.
@@ -38,5 +38,43 @@ public class OrderItem {
 
     private int count; //구매수량
 
-
+    public Long getId() {
+        return id;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public int getOrderPrice() {
+        return orderPrice;
+    }
+
+    public void setOrderPrice(int orderPrice) {
+        this.orderPrice = orderPrice;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+}
