@@ -9,6 +9,9 @@ public class CategoryItem {
 
 
 
+    //========================================================================================================
+
+    //[ 'Category 객체(N)'와 'Delivery 객체(M)' 간의 N : M 관계를 풀어주기 위한 '연결 테이블 'CATEGORY_ITEM' ]
 
     //< 'CategoryItem 객체의 필드 category'와 'Category 객체의 필드 id(1)' 간의 'N : 1 단방향' 매핑 >
     //- '주인(N : M 일 때 기준으로)'이 'CategoryItem 객체의 필드 category(='Category 객체의 필드 id')'인 경우
@@ -26,6 +29,7 @@ public class CategoryItem {
                                 //'주인이 아닌 테이블 ITEM의 PK인 컬럼 ITEM_ID'에 대응된다!
     private Item item; //='Item 객체의 핃드 id'
 
+    //========================================================================================================
 
 
 
