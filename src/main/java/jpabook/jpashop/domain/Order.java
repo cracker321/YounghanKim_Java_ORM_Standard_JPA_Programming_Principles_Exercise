@@ -24,7 +24,7 @@ public class Order {
     @ManyToOne //'주문(Order) 객체'와 '회원(Member) 객체'의 관계 = N : 1
     @JoinColumn(name = "MEMBER_ID") //'Order 객체의 필드 member(= 'Member 객체의 필드 id')'는
                                     //'테이블 MEMBER의 컬럼 MEMBER_ID'에 대응된다!
-    private Member member; //1. < 양방향 매핑 >
+    private Member member; //1. < 양방향 매핑
                            //- 'Order 객체'가 '외래키(필드 member)를 소유하고 있기에', '외래키 소유 객체인 Order 객체의 필드 member'가
                            //   양방향 매핑의 주인!
                            //- 'Member 객체' 입장에서는, '어떤 주문내역목록이 주문되었는지', '그 orders ID'에 대한 정보가 필요함
