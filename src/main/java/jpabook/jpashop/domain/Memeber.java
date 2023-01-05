@@ -20,7 +20,11 @@ public class Member {
     private String zipcode;
 
 
-    //< 'Member 객체의 필드 orders'와 'Order 객체의 필드 member' 간의 '양방향 연관관계 매핑': 주문내역'목록'ID >
+
+
+
+    //< 'Order 객체의 필드 member(N)'와 Member 객체의 필드 orders(1)' 간의 'N : 1 양방향 연관관계 매핑': 주문내역'목록'ID >
+    //- '주인'이 'Order 객체의 필드 member'인 경우
     @OneToMany(mappedBy = "member") //- '회원(Member) 객체'와 '주문(Order) 객체'와의 관계 = 1 : N
                                     //- '반대편 연관관계이자 주인'인 'Order 객체의 필드 member'와 '양방향 매핑'되어있다 라는 뜻
                                     //- '양방향 매핑의 주인인 Order 객체의 필드 member'의 위에 어노테이션으로는

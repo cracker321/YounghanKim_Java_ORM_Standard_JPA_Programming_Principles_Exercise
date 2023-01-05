@@ -17,27 +17,31 @@ public class Order {
     private Long id;
 
 
-    //1. < 'Order 객체의 필드 member'와 'Member 객체의 필드 orders' 간의 '양방향 연관관계 매핑': 주문내역'목록' ID >
-    //2. < 'Order 객체의 필드 member'와 'Member 객체의 필드 id' 간의 '단방향 연관관계 매핑': 주문한 회원ID >
+
+
+
+    //1. < 'Order 객체의 필드 member(N)'와 'Member 객체의 필드 orders(1)' 간의 'N : 1 양방향 연관관계 매핑': 주문내역'목록' ID >
+    //- '주인'이 'Order 객체의 필드 member(='Member 객체의 필드 orders')'인 경우
+    //2. < 'Order 객체의 필드 member(N)'와 'Member 객체의 필드 id(1)' 간의 'N : 1 단방향 연관관계 매핑': 주문한 회원ID >
     //즉, 아래 'Order 객체의 필드 member'는, '양방향 매핑'과 '단방향 매핑' 둘 다 'Member 객체'의 각각 다른 필드들과 연결되어 있다
     //일단, 가급적 '단방향 매핑'을 제대로 해둔다! 이것만으로 '개체 설계'는 많이 됨.
     @ManyToOne //'주문(Order) 객체'와 '회원(Member) 객체'의 관계 = N : 1
-    @JoinColumn(name = "MEMBER_ID") //'Order 객체의 필드 member(= 'Member 객체의 필드 id')'는
-                                    //'테이블 MEMBER의 컬럼 MEMBER_ID'에 대응된다!
-    private Member member; //1. < 양방향 매핑
+    @JoinColumn(name = "MEMBER_ID") //'주인인 현재 테이블 ORDER의 FK인 필드 member(= 'Member 객체의 필드 id')'는
+                                    //'주인이 아닌 테이블 MEMBER의 PK인 컬럼 MEMBER_ID'에 대응된다!
+    private Member member; //1. < N : 1 양방향 매핑 >
                            //- 'Order 객체'가 '외래키(필드 member)를 소유하고 있기에', '외래키 소유 객체인 Order 객체의 필드 member'가
                            //   양방향 매핑의 주인!
                            //- 'Member 객체' 입장에서는, '어떤 주문내역목록이 주문되었는지', '그 orders ID'에 대한 정보가 필요함
                            //   즉, 'orders ID'가 필요하고, 여기서의 'Member 객체의 필드 orders'가 바로 그 'oders ID'임.
-                           //2. < 단방향 매핑 >
+                           //2. < N : 1 단방향 매핑 >
                            //- 'Order 객체의 필드 member'. FK = 'Member 객체의 필드 id'. PK
                            //   'Order 객체'의 입장에서는, '어떤 Member(회원)가 주문했는지' '그 Member ID'에 대한 정보가 필요함.
                            //   즉, 'member ID'가 필요하고, 여기서의 '필드 member'가 바로 그 'member ID'임.
 
 
 
-    //1. < 'Order 객체의 필드 orderItems'와 'OrderItem 객체의 필드 order' 간의 '양방향 연관관계 매핑' >
-    //2. < 'Order 객체의 필드 id'와 'OrderItem 객체의 필드 order'간의 '단방향 연관관계 매핑' >
+    //1. < 'OrderItem 객체의 필드 order(N)'와 'Order 객체의 필드 orderItems(1)' 간의 'N : 1 양방향 연관관계 매핑' >
+    //- '주인'이 'OrderItem 객체의 필드 order'인 경우
     @OneToMany(mappedBy = "order") //- '주문(Order) 객체'와 '주문상품(OrderItem) 객체'와의 관계 = 1 : N
                                    //- '반대편 연관관계이자 주인'인 'OrderItem 객체의 필드 order'와 '양방향 매핑'되어있다 라는 뜻
                                    //- '양방향 매핑의 주인인 OrderItem 객체의 필드 order'의 위에 어노테이션으로는
@@ -59,6 +63,14 @@ public class Order {
 //                           //왜냐하면, '테이블의 외래키를 자바 객체에 그대로 가져왔고',
 //                           //         '객체 그래프 탐색이 불가능'하며,
 //                           //         '참조가 없으므로 UML도 잘못됨'.
+
+
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")//'주인인 현재 테이블 ORDER의 FK인 필드 delivery(='Delivery 객체의 필드 id')'는
+                                     //'주인이 아닌 테이블 DELIVERY의 PK인 컬럼 DELIVERY_ID'에 대응된다!
+    private Delivery delivery;
+
+
 
 
     private LocalDateTime orderDate;
