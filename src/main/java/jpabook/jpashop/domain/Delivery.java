@@ -7,7 +7,8 @@ import java.util.List;
 public class Delivery {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column(name = "DELIVERY_ID")
     private Long id;
 
     @OneToOne(mappedBy = "delivery")

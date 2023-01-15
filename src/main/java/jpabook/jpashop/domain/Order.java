@@ -18,8 +18,6 @@ public class Order {
 
 
 
-
-
     //1. < 'Order 객체의 필드 member(N)'와 'Member 객체의 필드 orders(1)' 간의 'N : 1 양방향 연관관계 매핑': 주문내역'목록' ID >
     //- '주인'이 'Order 객체의 필드 member(='Member 객체의 필드 orders')'인 경우
     //2. < 'Order 객체의 필드 member(N)'와 'Member 객체의 필드 id(1)' 간의 'N : 1 단방향 연관관계 매핑': 주문한 회원ID >

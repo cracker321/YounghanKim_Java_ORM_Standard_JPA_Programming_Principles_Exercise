@@ -1,13 +1,13 @@
 package jpabook.jpashop.domain;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@DiscriminatorColumn(name = "DTYPE")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Entity
 public class Item {
 
@@ -20,14 +20,9 @@ public class Item {
     private int price;
     private int stockQuantity;
 
-    private List<Category> categories = new ArrayList<>();
 
-
-
-
-
-
-
+    @OneToMany(mappedBy = "item")
+    private List<CategoryItem> categoryItems = new ArrayList<>();
 
 
 
