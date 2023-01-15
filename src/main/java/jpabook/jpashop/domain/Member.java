@@ -26,16 +26,16 @@ public class Member {
     //< 'Order 객체의 필드 member(N)'와 Member 객체의 필드 orders(1)' 간의 'N : 1 양방향 연관관계 매핑': 주문내역'목록'ID >
     //- '주인'이 'Order 객체의 필드 member'인 경우
     @OneToMany(mappedBy = "member") //- '회원(Member) 객체'와 '주문(Order) 객체'와의 관계 = 1 : N
-                                    //- '반대편 연관관계이자 주인'인 'Order 객체의 필드 member'와 '양방향 매핑'되어있다 라는 뜻
-                                    //- '양방향 매핑의 주인인 Order 객체의 필드 member'의 위에 어노테이션으로는
-                                    // 'mappedBy'에 사용될 수 없기에
-                                    //  '그 반대편 연관관계 매핑'의 대상인 이 '필드 orders'의 위에 'member'가 'mappedBy' 되는 것이다!
+    //- '반대편 연관관계이자 주인'인 'Order 객체의 필드 member'와 '양방향 매핑'되어있다 라는 뜻
+    //- '양방향 매핑의 주인인 Order 객체의 필드 member'의 위에 어노테이션으로는
+    // 'mappedBy'에 사용될 수 없기에
+    //  '그 반대편 연관관계 매핑'의 대상인 이 '필드 orders'의 위에 'member'가 'mappedBy' 되는 것이다!
     private List<Order> orders = new ArrayList<Order>(); //'new ArrayList<>();'로 해도 됨.
-                        //- 'Member 객체의 필드 orders' = 'Order 객체의 필드 orderItems'
-                        //- 'Order 객체'가 '외래키(필드 member)를 가지고 있기에', '외래키 소유객체인 Order 객체의 필드 member'가
-                        //  이 '양방향 매핑의 주인'이다.
-                        //- 'Member 객체'의 입장에서는, '어떤 주문내역목록이 주문되었는지' '그 orders ID'에 대한 정보가 필요함.
-                        //  즉, 'orders ID'가 필요하고, 여기서의 '필드 orders'가 바로 그 'orders ID'임.
+    //- 'Member 객체의 필드 orders' = 'Order 객체의 필드 orderItems'
+    //- 'Order 객체'가 '외래키(필드 member)를 가지고 있기에', '외래키 소유객체인 Order 객체의 필드 member'가
+    //  이 '양방향 매핑의 주인'이다.
+    //- 'Member 객체'의 입장에서는, '어떤 주문내역목록이 주문되었는지' '그 orders ID'에 대한 정보가 필요함.
+    //  즉, 'orders ID'가 필요하고, 여기서의 '필드 orders'가 바로 그 'orders ID'임.
 //Q: '@OneToMany'에서는 '@JoinColumn'을 사용하지 않는 이유?
 //A: '다대 일(N:1) 연관관계'에서는 '연관관계의 주인'을 설정해주어야 함.
 //   일반적으로 '다(N)' 쪽이 '연관관계의 주인'임.
