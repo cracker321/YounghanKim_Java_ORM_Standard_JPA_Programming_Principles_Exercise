@@ -2,6 +2,8 @@ package jpabook.jpashop.domain;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.*;
+
 @Entity
 public class OrderItem {
 
@@ -13,7 +15,9 @@ public class OrderItem {
 
     //< 'OrderItem 객체의 필드 order(N)'와 'Order 객체의 필드 id(1)' 간의 'N : 1 단방향' 매핑': 주문된 주문내역ID >
     //- '주인(N : M 일때 기준으로)'이 'OrderItem 객체의 필드 order(='Order 객체의 필드 id')'인 경우
-    @ManyToOne //'주문상품(OrderItem) 객체'와 '주문(Order) 객체'의 관계 = N : 1
+    @ManyToOne(fetch = LAZY) //'주문상품(OrderItem) 객체'와 '주문(Order) 객체'의 관계 = N : 1
+                             //cf) 'fetch =...' 작성 후에 'alt + enter' 누르고,
+                             //'add on demand static import for...'누르면, 더 축약되어 깔끔하게 써진다!
     @JoinColumn(name = "ORDER_ID") //'주인인 현재 테이블 ORDER_ITEM의 FK인 필드 member(= 'Member 객체의 필드 id')'는
                                    //'주인이 아닌 테이블 ORDER의 PK인 컬럼 ORDER_ID'에 대응된다!
     private Order order; //'OrderItem 객체의 필드 order'. FK = 'Order 객체의 필드 id'. PK
@@ -25,7 +29,9 @@ public class OrderItem {
 
     //< 'OrderItem 객체의 필드 item(N)'과 'Item 객체의 필드 id(1)' 간의 'N : 1 단방향 매핑': 주문된 상품ID >
     //- '주인(N : M 일때 기준으로)'이 'OrderItem 객체의 필드 item(='Item 객체의 필드 id')인 경우
-    @ManyToOne //'주문상품(OrderItem) 객체'와 '상품(Item) 객체'의 관계 = N : 1
+    @ManyToOne(fetch = LAZY) //'주문상품(OrderItem) 객체'와 '상품(Item) 객체'의 관계 = N : 1
+                             //cf) 'fetch =...' 작성 후에 'alt + enter' 누르고,
+                             //'add on demand static import for...'누르면, 더 축약되어 깔끔하게 써진다!
     @JoinColumn(name = "ITEM_ID") //'주인인 현재 테이블 ORDER_ITEM의 FK인 필드 item(= 'Item 객체의 필드 id)'은
                                   //'주인이 아닌 테이블 ITEM의 PK인 컬럼 ITEM_ID'에 대응된다!
     private Item item; //'OrderItem 객체의 필드 item'. FK = 'Item 객체의 필드 id'. PK

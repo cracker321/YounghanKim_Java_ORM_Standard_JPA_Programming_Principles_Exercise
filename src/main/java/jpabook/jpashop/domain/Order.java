@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.*;
+
 @Entity
 @Table(name = "ORDERS")
 public class Order {
@@ -23,7 +25,9 @@ public class Order {
     //2. < 'Order 객체의 필드 member(N)'와 'Member 객체의 필드 id(1)' 간의 'N : 1 단방향 연관관계 매핑': 주문한 회원ID >
     //즉, 아래 'Order 객체의 필드 member'는, '양방향 매핑'과 '단방향 매핑' 둘 다 'Member 객체'의 각각 다른 필드들과 연결되어 있다
     //일단, 가급적 '단방향 매핑'을 제대로 해둔다! 이것만으로 '개체 설계'는 많이 됨.
-    @ManyToOne //'주문(Order) 객체'와 '회원(Member) 객체'의 관계 = N : 1
+    @ManyToOne(fetch = LAZY) //'주문(Order) 객체'와 '회원(Member) 객체'의 관계 = N : 1
+                             //cf) 'fetch =...' 작성 후에 'alt + enter' 누르고,
+                             //'add on demand static import for...'누르면, 더 축약되어 깔끔하게 써진다!
     @JoinColumn(name = "MEMBER_ID") //'주인인 현재 테이블 ORDER의 FK인 필드 member(= 'Member 객체의 필드 id')'는
                                     //'주인이 아닌 테이블 MEMBER의 PK인 컬럼 MEMBER_ID'에 대응된다!
     private Member member; //1. < N : 1 양방향 매핑 >
@@ -73,7 +77,8 @@ public class Order {
 
     private LocalDateTime orderDate;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) //enum 쓸 때는 반드시 'enumType.STRING'으로 해줘야 한다!
+                                 //'enumType.ORDINAL'로 하면 절대 안된다!
     private OrderStatus status;
 
 
