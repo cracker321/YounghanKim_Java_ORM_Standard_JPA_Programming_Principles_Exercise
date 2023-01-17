@@ -22,7 +22,8 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor//'임베디드 타입 객체'는 반드시 '기본 생성자'를 가지고 있어야 함!
 @Embeddable //'임베디드 타입 객체'
 
-//'임베디드 타입 객체'는 '엔티티가 아니기 때문'에 절대 '@Entity'를 붙여줘서는 안된다!
+//- '임베디드 타입 객체'는 '엔티티가 아니기 때문'에 절대 '@Entity'를 붙여줘서는 안된다!
+//- '임베디드 타입 객체'와 같이 '값 타입 객체'는 '공유 참조를 피하기 위해', '절대 Setter를 쓰면 안된다'!!!!!
 
 public class Address {
 
@@ -36,5 +37,14 @@ public class Address {
     String zipcode;
 
 
+    
+    //아래는 옵션사항. 
+    //그냥 여기선 '다른 객체의 필드가 Address 객체를 호출했을 때', '의미있는 반환값을 건네주기 위해' 이렇게 생성자 설정함
+    //'값 타입 Address 객체'를 좀 더 의미있고, 객체지향적으로 사용하기 위해 아래처럼 하는 것도 해볼만 함.
+    public String fullAddress(){
+
+        return getCity() + getStreet() + getZipcode();
+    }
+    
 
 }
