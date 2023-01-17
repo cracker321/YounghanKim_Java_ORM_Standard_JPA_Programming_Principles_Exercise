@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.FetchType.*;
+import static org.hibernate.annotations.CascadeType.ALL;
 
 @Entity
 @Table(name = "ORDERS")
-public class Order {
+public class Order{
 
 
     @Id
@@ -44,7 +45,8 @@ public class Order {
 
     //1. < 'OrderItem 객체의 필드 order(N)'와 'Order 객체의 필드 orderItems(1)' 간의 'N : 1 양방향 연관관계 매핑' >
     //- '주인'이 'OrderItem 객체의 필드 order'인 경우
-    @OneToMany(mappedBy = "order") //- '주문(Order) 객체'와 '주문상품(OrderItem) 객체'와의 관계 = 1 : N
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+                                   //- '주문(Order) 객체'와 '주문상품(OrderItem) 객체'와의 관계 = 1 : N
                                    //- '반대편 연관관계이자 주인'인 'OrderItem 객체의 필드 order'와 '양방향 매핑'되어있다 라는 뜻
                                    //- '양방향 매핑의 주인인 OrderItem 객체의 필드 order'의 위에 어노테이션으로는
                                    //   'mappedBy'에 사용될 수 없기에
@@ -67,9 +69,21 @@ public class Order {
 //                           //         '참조가 없으므로 UML도 잘못됨'.
 
 
-    @OneToOne
-    @JoinColumn(name = "DELIVERY_ID")//'주인인 현재 테이블 ORDER의 FK인 필드 delivery(='Delivery 객체의 필드 id')'는
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL) //그러나, '1:1 양방향 매핑'에서는 꼭 반드시 주인객체('Order 객체') 내부에
+                                                       //'Cascade'를 쓰는 것은 아니고,
+                                                       //'주인 객체'와 '주인이 아닌 객체' 간의 '종속 관계를 고려하여
+                                                       //'더 상위 객체(하위 객체를 관리하는(종속시키는) 객체)'에
+                                                       //'Cascade'를 붙이는 것이ㅏㄷ.
+                                                       //여기서는, 'Order 객체'와 'Delivery 객체' 관계에서,
+                                                       //'주문 Order'이 발생해야, 그에 이어져서(종속적으로) '배송 Delivery'라는
+                                                       //사건이 발생하므로, 'Order 객체'가 'Delivery 객체'를 종속하고,
+                                                       //그에 따라, 'Order 객체 내부'에 'Cascade'를 붙이는 것이다!
+
+    @JoinColumn(name = "DELIVERY_ID")//- '주인인 현재 테이블 ORDER의 FK인 필드 delivery(='Delivery 객체의 필드 id')'는
                                      //'주인이 아닌 테이블 DELIVERY의 PK인 컬럼 DELIVERY_ID'에 대응된다!
+                                     //- '@JoinColumn'은 항상 '주인 객체의 내부 필드'에서 사용된다!
+                                     //e.g) '@ManyToOne'과 '@JoinColumn'은 같이 사용됨
+                                     //     '@OneToOne'과 '@JoinColumn'은 같이 사용됨
     private Delivery delivery;
 
 
