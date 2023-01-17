@@ -15,9 +15,10 @@ public class Member {
 
     @Column(length = 10) //10자를 넘으면 안됨. '자바 객체의 필드들'에는 이거 다 추가해주기!
     private String name;
-    private String city;
-    private String street;
-    private String zipcode;
+
+
+    @Embedded
+    private Address address;
 
 
 
