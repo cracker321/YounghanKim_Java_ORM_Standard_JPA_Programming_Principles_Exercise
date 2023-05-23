@@ -28,13 +28,13 @@ import javax.persistence.Embeddable;
 public class Address {
 
     @Column(length = 10) //'도시명 city'은 10자까지만 입력받아줄거야
-    String city;
+    private String city;
 
     @Column(length = 20) //'거리명 street'은 20자까지만 입력받아줄거야
-    String street;
+    private String street;
 
     @Column(length = 5) //'주소명 zipcode'는 5자까미나 입력받아줄거야야
-    String zipcode;
+    private String zipcode;
 
 
     
